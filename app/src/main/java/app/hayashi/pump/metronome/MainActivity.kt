@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             textView.text = "♩=" + count.toString()
         }
         minus.setOnClickListener {
-            count++
+            count--
             time = (60000/count).toLong()
             textView.text = "♩=" + count.toString()
         }
