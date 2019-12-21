@@ -9,72 +9,55 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/metronome" />
 
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/start" />
+
     <LinearLayout
-        android:layout_width="340dp"
-        android:layout_height="54dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-        <ImageView
-            android:id="@+id/stop"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="84dp"
-            app:srcCompat="@drawable/teishi" />
-
-        <ImageView
-            android:id="@+id/start"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="84dp"
-            app:srcCompat="@drawable/saisei" />
-
         <TextView
             android:id="@+id/textView"
-            android:layout_width="187dp"
+            android:layout_width="71dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="84dp"
             android:background="#FFFFFF"
             android:lineSpacingExtra="30sp"
-            android:text="♩=60"
-            android:textAlignment="center"
+            android:text="♩="
+            android:textAlignment="textStart"
             android:textSize="36sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="▲"
-                android:textAlignment="center"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="▼"
-                android:textAlignment="center"
-                android:textSize="8sp" />
-        </LinearLayout>
-
+        <NumberPicker
+            android:id="@+id/BPMPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

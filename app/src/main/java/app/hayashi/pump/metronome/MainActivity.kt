@@ -1,54 +1,58 @@
 package app.hayashi.pump.metronome
 
 import android.media.MediaPlayer
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
 
-    var timerCount: Int = 0
-    val handler: Handler = Handler()
-    var count = 60
-    var time = (60000/count).toLong()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView.text = "♩=" + count.toString()
 
-        var mediaPlayer = MediaPlayer.create(this, R.raw.metronome2)
+        var BPM :Int = 40
+        val handler: Handler = Handler()
+        var interval = (60000/BPM).toLong()
+        val mediaPlayer = MediaPlayer.create(this, R.raw.metronome)
+        var metronome = timer(period = interval) {}
+        var isPlaying : Boolean = false
 
-        var metro = timer(period = time) {
-        }
-        stop.setOnClickListener {
-            metro.cancel()
-        }
-        start.setOnClickListener {
-            metro.cancel()
-            timerCount = 0
-            metro = timer(period = time) {
+        BPMPicker.minValue = 40
+        BPMPicker.maxValue = 208
+
+        fun setMetronome() {
+            interval = (60000/BPM).toLong()
+            metronome.cancel()
+            metronome = timer(period = interval) {
                 handler.post {
-                    timerCount++
                     mediaPlayer.stop()
                     mediaPlayer.prepare()
                     mediaPlayer.start()
                 }
             }
         }
-        plus.setOnClickListener {
-            count++
-            time = (60000/count).toLong()
-            textView.text = "♩=" + count.toString()
+
+        BPMPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            BPM = newVal
+            if(isPlaying) setMetronome()
         }
-        minus.setOnClickListener {
-            count--
-            time = (60000/count).toLong()
-            textView.text = "♩=" + count.toString()
+
+        start.setOnClickListener {
+            when(isPlaying) {
+                true -> {
+                    start.setImageResource(R.drawable.start)
+                    metronome.cancel()
+                    isPlaying = false
+                }
+                false -> {
+                    setMetronome()
+                    start.setImageResource(R.drawable.stop)
+                    isPlaying = true
+                }
+            }
         }
     }
 }
